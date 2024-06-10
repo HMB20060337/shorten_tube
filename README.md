@@ -1,3 +1,3 @@
-# ai_youtube
+# ShortenTube
 
-A new Flutter project.
+Youtube Video Summarizer
