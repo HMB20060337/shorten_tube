@@ -13,8 +13,7 @@ import 'package:xml/xml.dart';
 final welcomeRiverpod = ChangeNotifierProvider((ref) => WelcomeNotifier());
 
 class WelcomeNotifier extends ChangeNotifier {
-  TextEditingController controller =
-      TextEditingController(text: 'AIzaSyCkLdxcbGSm3k392QuQWScDggOE1kHe5rA');
+  TextEditingController controller = TextEditingController();
   TextEditingController linkController = TextEditingController();
 
   var ytService = YtService();
@@ -44,7 +43,6 @@ class WelcomeNotifier extends ChangeNotifier {
     // JSON kısmını ayırıyor ve geri döndürüyor
     return input.substring(startIndex, endIndex);
   }
-
 
   String formatSure(String sure) {
     // ":" karakterlerini koruyarak süreyi dönüştür
@@ -106,9 +104,8 @@ class WelcomeNotifier extends ChangeNotifier {
           Navigator.pop(context);
           FocusScope.of(context).unfocus();
           return;
-        }
-        else{
-          try{
+        } else {
+          try {
             var key = 0;
             await box.add([true, val.last]).then((value) {
               Navigator.pop(context);
@@ -119,18 +116,16 @@ class WelcomeNotifier extends ChangeNotifier {
               str = "$str $subtitle";
             }
             gptService.processLongText(str).then((value) {
-              if(value.isEmpty){
+              if (value.isEmpty) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
                     content: const Text(
                         "Bir Hata Oluştu.\nDaha Sonra Tekrar Deneyiniz."),
                     duration: const Duration(seconds: 5),
                     margin: EdgeInsets.only(
-                        bottom: 100.h - 150,
-                        left: 16.0,
-                        right: 16.0),
-                    behavior:
-                    SnackBarBehavior.floating, // Snackbar'ın gösterim süresi
+                        bottom: 100.h - 150, left: 16.0, right: 16.0),
+                    behavior: SnackBarBehavior
+                        .floating, // Snackbar'ın gösterim süresi
                   ),
                 );
                 box.put(key, [false, val.last, {}, url]);
@@ -142,18 +137,15 @@ class WelcomeNotifier extends ChangeNotifier {
               }
               box.put(key, [false, val.last, temp, url]);
             });
-          }catch(e){
+          } catch (e) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                content:  Text(
-                    e.toString()),
+                content: Text(e.toString()),
                 duration: const Duration(seconds: 5),
                 margin: EdgeInsets.only(
-                    bottom: 100.h - 150,
-                    left: 16.0,
-                    right: 16.0),
+                    bottom: 100.h - 150, left: 16.0, right: 16.0),
                 behavior:
-                SnackBarBehavior.floating, // Snackbar'ın gösterim süresi
+                    SnackBarBehavior.floating, // Snackbar'ın gösterim süresi
               ),
             );
             return;
